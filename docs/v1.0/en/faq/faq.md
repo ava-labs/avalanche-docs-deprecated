@@ -121,6 +121,8 @@ Logs specific to a chain are in subdirectory `chain/[CHAIN ID]` where `[CHAIN ID
 
 ### Is my node done bootstrapping?
 
+Bootstrapping can take hours!
+
 The simplest way to check is to get a drip from the [AVA faucet](https://faucet.ava.network/) and check that your address's balance changes.
 
 To check an address's balance, call the X-Chain's `getBalance` method:
@@ -140,6 +142,19 @@ curl -X POST --data '{
 Replace `X-5TQr5hSAZ8ZKuSaYLg5sr4VwvcvwKZ1Mg` with the address you sent the drip to.
 
 If your node reflects the drip, it's done bootstrapping. Otherwise, it is not.
+
+As long as your folder `$HOME/.gecko/db/` keeps growing in size you should be fine.
+You can check that size with:
+
+```sh
+du -hs ~/.gecko/db
+```
+
+Or check constantly with (Strg + c to quit):
+
+```sh
+watch du -hs ~/.gecko/db
+```
 
 ### Is my node in the validator set?
 
