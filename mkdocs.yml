@@ -54,6 +54,7 @@ nav:
               - IPC API                : ./v1.0/en/api/ipc.md
               - Metrics API            : ./v1.0/en/api/metrics.md
               - Timestamp API          : ./v1.0/en/api/timestamp.md
+              - Info API               : ./v1.0/en/api/info.md
   - Developer Tools:
               - Overview : ./v1.0/en/tools/index.md
               - Avalanche.js :
