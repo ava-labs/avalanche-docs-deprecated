@@ -241,7 +241,7 @@ They can achieve irreversible finality in 1-2 seconds, quicker than a typical cr
 They support many thousands of transactions per second, in excess of Visa's typical throughput.
 
 In a given round a validator queries only a small sub-sample of validators, allowing Avalanche to scale to up to millions of participants.
-No other proof-of-stake protocol can support nearly as many validators without compromising the decentralization of the network.
+No other proof-of-stake protocol can support nearly as many validators without compromising the security of the network.
 
 Avalanche protocols are lightweight and sustainable.
 Unlike Nakamoto protocols, they use very little energy, and when there is no work to do, the system quiesces (waits in a low-energy-consumption state.)
