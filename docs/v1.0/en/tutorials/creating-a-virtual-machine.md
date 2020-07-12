@@ -25,7 +25,7 @@ must implement to be compatible with the platform's Avalanche consensus engine.
 We'll show and explain all the code that constitutes this Virtual Machine in snippets.
 In-line comments explain what's going on in the code.
 At the bottom of some snippets, we expound further on some portions of the code.
-If you want to see the code in one place, rather than in snippets, you can see it in our [Github repository.](https://github.com/ava-labs/gecko/tree/platform/vms/timestamp)
+If you want to see the code in one place, rather than in snippets, you can see it in our [Github repository.](https://github.com/ava-labs/edit/master/docs/v1.0/en/tutorials/creating-a-virtual-machine.md)
 
 ## The `snowman.VM` Interface
 
