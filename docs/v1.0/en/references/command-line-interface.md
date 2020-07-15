@@ -132,7 +132,7 @@ Avalanche uses two-way authenticated TLS connections to securely identify the `s
 
 The following options affect the correctness of the platform. They may need to be changed network-wide, and as a result, an ordinary user should rarely change from the defaults.
 
-`--ava-tx-fee` (int):
+`--avax-tx-fee` (int):
 
 The required amount of nAVAX to be burned for a transaction to be valid. This parameter requires network agreement in its current form. Changing this value from the default should only be done on private networks. Defaults to `0` nAVAX per transaction.
 

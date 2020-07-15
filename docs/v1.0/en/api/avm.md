@@ -394,17 +394,15 @@ curl -X POST --data '{
 }
 ```
 
-### avm.exportAVA
-
-(Note: This method will change to `exportAVAX` in the next release.)
+### avm.exportAVAX
 
 Send AVAX from the X-Chain to an account on the P-Chain.  
-After calling this method, you must call the P-Chain's [`importAVA`](./platform.md#platformimportava) method to complete the transfer.
+After calling this method, you must call the P-Chain's [`importAVAX`](./platform.md#platformimportavax) method to complete the transfer.
 
 #### Signature
 
 ```go
-avm.exportAVA({
+avm.exportAVAX({
     to: string,
     amount: int,
     username: string,
@@ -422,7 +420,7 @@ avm.exportAVA({
 curl -X POST --data '{
     "jsonrpc":"2.0",
     "id"     :1,
-    "method" :"avm.exportAVA",
+    "method" :"avm.exportAVAX",
     "params" :{
         "to":"Bg6e45gxCUTLXcfUuoy3go2U6V3bRZ5jH",
         "amount": 500,
@@ -525,7 +523,7 @@ curl -X POST --data '{
     "result": {
         "balances": [
             {
-                "asset": "AVA",
+                "asset": "AVAX",
                 "balance": "102"
             },
             {
@@ -741,18 +739,16 @@ curl -X POST --data '{
 }
 ```
 
-### avm.importAVA
-
-(Note: This method will change to `importAVAX` in the next release.)
+### avm.importAVAX
 
 Finalize a transfer of AVAX from the P-Chain to the X-Chain.
 
-Before this method is called, you must call the P-Chain's [`exportAVA`](./platform.md#platformexportava) method to initiate the transfer.
+Before this method is called, you must call the P-Chain's [`exportAVAX`](./platform.md#platformexportavax) method to initiate the transfer.
 
 #### Signature
 
 ```go
-avm.importAVA({
+avm.importAVAX({
     to: string,
     username: string,
     password:string,
@@ -760,7 +756,7 @@ avm.importAVA({
 ```
 
 * `to` is the address the AVAX is sent to.
-  This must be the same as the `to` argument in the corresponding call to the P-Chain's `exportAVA`,
+  This must be the same as the `to` argument in the corresponding call to the P-Chain's `exportAVAX`,
   except that the prepended `X-` should be included in this argument.
 * `username` is the user that controls `to`.
 
@@ -770,7 +766,7 @@ avm.importAVA({
 curl -X POST --data '{
     "jsonrpc":"2.0",
     "id"     :1,
-    "method" :"avm.importAVA",
+    "method" :"avm.importAVAX",
     "params" :{
     	"username":"myUsername",
     	"password":"myPassword",
@@ -931,7 +927,7 @@ avm.Send({
 * The asset is sent from addresses controlled by user `username`.
   (Of course, that user will need to hold at least the balance of the asset being sent.)
 
-(Note: The asset ID of AVAX is AVA on nodes running Denali or earlier. The ID will change to AVAX in the next release.)
+(Note: The asset ID of AVAX is AVA on nodes running Denali or earlier. The ID was changed to AVAX on the Everest release.)
 
 #### Example Call
 
@@ -941,7 +937,7 @@ curl -X POST --data '{
     "id"     :1,
     "method" :"avm.send",
     "params" :{
-        "assetID" :"AVA",
+        "assetID" :"AVAX",
         "amount"  :10000,
         "to"      :"X-xMrKg8uUECt5CS9RE9j5hizv2t2SWTbk",
         "username":"userThatControlsAtLeast10000OfThisAsset",

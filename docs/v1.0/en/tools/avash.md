@@ -53,7 +53,7 @@ Type:
   optional, <filepath>
 
 Default:
-  $GOPATH/src/github.com/ava-labs/gecko/build/ava
+  $GOPATH/src/github.com/ava-labs/gecko/build/avalanche
 ```
 
 #### `datadir`
@@ -279,12 +279,12 @@ Usage:
 
 Flags:
       --assertions-enabled                   Turn on assertion execution. (default true)
-      --ava-tx-fee uint                      Ava transaction fee, in nAVAX.
+      --avax-tx-fee uint                      Avax transaction fee, in nAVAX.
       --bootstrap-ids string                 Comma separated list of bootstrap peer ids to connect to. Example: JR4dVmy6ffUGAKCBDkyCbeZbyHQBeDsET,8CrVPQZ4VSqgL8zTdvL14G8HqAfrBr4z
       --bootstrap-ips string                 Comma separated list of bootstrap nodes to connect to. Example: 127.0.0.1:9630,127.0.0.1:9620
       --client-location string               Path to Avalanche node client, defaulting to the config file's value.
       --data-dir string                      Name of directory for the data stash.
-      --db-dir string                        Database directory for Ava state. (default "db1")
+      --db-dir string                        Database directory for Avax state. (default "db1")
       --db-enabled                           Turn on persistent storage. (default true)
   -h, --help                                 help for startnode
       --http-port uint                       Port of the HTTP server. (default 9650)

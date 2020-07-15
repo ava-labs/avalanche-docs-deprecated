@@ -71,7 +71,7 @@ def F(n):
     elif n == 1: return 1
     else: return F(n-1)+F(n-2)
 
-def AVA_minting(periods, gov_switch):
+def AVAX_minting(periods, gov_switch):
     assert periods >= gov_switch
     minting_rate_function = np.linspace(1.02, 1.02, periods - gov_switch)
     print(minting_rate_function)
@@ -103,7 +103,7 @@ def power_modified(periods):
     results = [i*normalizer/1000000 for i in results]
     # results = [i + 10 for i in results]
     # results = [(i/200000) for i in results]
-    print("AVA:", results[:50])
+    print("AVAX:", results[:50])
     return results
 
 def power_modified_lower_bound(periods):
@@ -132,7 +132,7 @@ def power_modified_lower_bound(periods):
     results = [i*0.5*0.9 for i in results]
     # results = [i + 10 for i in results]
     # results = [(i/200000) for i in results]
-    print("AVA:", results[:50])
+    print("AVAX:", results[:50])
     return results
 
 def main():
@@ -151,15 +151,15 @@ def main():
     # plt.plot(range(0,periods+1), power(2, periods), label="Power 2 (2^i)", color="black",linestyle="--")
     # plt.plot(range(0,periods+1), power(1.2, periods), label="Power 1.1 (1.1^i)", color="black")
 
-    # Plot AVA full staking
+    # Plot AVAX full staking
     r = power_modified(periods)
     r = [((360 + i)/720) * 100 for i in r]
-    plt.plot(range(0,periods+1), r, label="AVA (100\% staked)", color="red", linestyle="-.")
+    plt.plot(range(0,periods+1), r, label="AVAX (100\% staked)", color="red", linestyle="-.")
 
-    # Plot AVA partial staking
+    # Plot AVAX partial staking
     r = power_modified_lower_bound(periods)
     r = [((360 + i)/720) * 100 for i in r]
-    plt.plot(range(0,periods+1), r, label="AVA (50\% staked)", color="blue", linestyle="--")
+    plt.plot(range(0,periods+1), r, label="AVAX (50\% staked)", color="blue", linestyle="--")
     
     # plt.plot(range(0,periods), square(2, periods), label="Squares (i^2)", color="red")
 
@@ -172,7 +172,7 @@ def main():
     # plt.plot(periods*[2*12.514285], color="gray", linestyle="--")
     # plt.plot(periods*[3*12.514285], color="gray", linestyle="--")
     # plt.plot(periods*[4*12.514285], color="gray", linestyle="--")
-    # plt.plot(range(0, periods+1), AVA_minting(periods, gov_switch), label="AVA", color="blue", linestyle="--")
+    # plt.plot(range(0, periods+1), AVAX_minting(periods, gov_switch), label="AVAX", color="blue", linestyle="--")
 
     plt.xlabel(r'Years Since Genesis', fontsize=32, labelpad=40)
     plt.ylabel(r'\% of Total Cap Reached', fontsize=32, labelpad=30)

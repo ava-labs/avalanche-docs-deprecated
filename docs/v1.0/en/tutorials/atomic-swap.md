@@ -20,9 +20,7 @@ We assume your node is connected to the Public Testnet.
 Of course, in order to send AVAX you need to have some AVAX!
 Use the [Public Tesnet Faucet](https://faucet.avax.network/) to send some AVAX to an X-Chain address you hold, just like in the quickstart guide.
 
-To send the AVAX, call the X-Chain's [`exportAVA`](../api/avm.md#avmexportava) method.
-
-(Note: `avm.exportAVA` will change to `avm.exportAVAX` in the next release.)
+To send the AVAX, call the X-Chain's [`exportAVAX`](../api/avm.md#avmexportavax) method.
 
 Your call should look like this:
 
@@ -30,7 +28,7 @@ Your call should look like this:
 curl -X POST --data '{
     "jsonrpc":"2.0",
     "id"     :1,
-    "method" :"avm.exportAVA",
+    "method" :"avm.exportAVAX",
     "params" :{
         "to":"Bg6e45gxCUTLXcfUuoy3go2U6V3bRZ5jH",
         "amount": 500,
@@ -89,7 +87,7 @@ curl -X POST --data '{
     "method" :"avm.getBalance",
     "params" :{
         "address":"X-ADDRESSGOESHERE",
-        "assetID":"AVA"
+        "assetID":"AVAX"
     }
 }' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/X
 ```
@@ -99,16 +97,14 @@ curl -X POST --data '{
 ## Import AVAX to the P-Chain from the X-Chain
 
 Our transfer isn't done just yet.
-We need to call the P-Chain's [`importAVA`](../api/platform.md#platformimportava) method to finish the transfer.
-
-(Note: `platform.importAVA` will change to `platform.importAVAX` in the next release.)
+We need to call the P-Chain's [`importAVAX`](../api/platform.md#platformimportavax) method to finish the transfer.
 
 Your call should look like this:
 
 ```json
 curl -X POST --data '{
     "jsonrpc": "2.0",
-    "method": "platform.importAVA",
+    "method": "platform.importAVAX",
     "params": {
         "username":"myUsername",
         "password":"myPassword",
@@ -119,7 +115,7 @@ curl -X POST --data '{
 }' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/P
 ```
 
-where `to` is the same as in the call to `avm.exportAVA`, and `username` controls the account specified in `to`.
+where `to` is the same as in the call to `avm.exportAVAX`, and `username` controls the account specified in `to`.
 
 This call returns the transaction:
 
@@ -180,12 +176,12 @@ Now we can use the AVAX held by this P-Chain account to provide a stake in order
 
 Now let's move AVAX on the P-Chain back to the X-Chain.
 
-To do so, call [`platform.exportAVA`](../api/platform.md#platformexportava):
+To do so, call [`platform.exportAVAX`](../api/platform.md#platformexportavax):
 
 ```json
 curl -X POST --data '{
     "jsonrpc": "2.0",
-    "method": "platform.exportAVA",
+    "method": "platform.exportAVAX",
     "params": {
         "to":"G5ZGXEfoWYNFZH5JF9C4QPKAbPTKwRbyB",
         "amount":250,
@@ -209,7 +205,7 @@ This returns the unsigned transaction:
 }
 ```
 
-Now we sign with the key of the account that the AVA is being sent from:
+Now we sign with the key of the account that the AVAX is being sent from:
 
 ```json
 curl -X POST --data '{
@@ -279,13 +275,13 @@ The response should look like this:
 
 ## Import AVAX to the X-Chain from the P-Chain
 
-To finish our transfer from the P-Chain to the X-Chain, call `avm.importAVA`:
+To finish our transfer from the P-Chain to the X-Chain, call `avm.importAVAX`:
 
 ```json
 curl -X POST --data '{
     "jsonrpc":"2.0",
     "id"     :1,
-    "method" :"avm.importAVA",
+    "method" :"avm.importAVAX",
     "params" :{
         "username":"myUsername",
         "password":"myPassword",
@@ -294,7 +290,7 @@ curl -X POST --data '{
 }' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/X
 ```
 
-Note that `to` is the same address specified in our call to `platform.exportAVA` except that we include `X-` in the address.
+Note that `to` is the same address specified in our call to `platform.exportAVAX` except that we include `X-` in the address.
 `username` must control the address in `to` for the transfer to succeed.
 
 Just as before, we can call `avm.getBalance` to verify the funds were sent.

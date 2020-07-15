@@ -2,7 +2,7 @@
 
 This document describes the API of the C-Chain, which is an instance of the Ethereum Virtual Machine (EVM.)
 
-Note: Ethereum has its own notion of `networkID` and `chainID`. The C-Chain uses `1` and `43110` for these values, obtained using the `net_version` and `eth_chainId` methods shown below. These have no relationship to AVA's view of networkID and chainID, and are purely internal to the C-Chain. 
+Note: Ethereum has its own notion of `networkID` and `chainID`. The C-Chain uses `1` and `43110` for these values, obtained using the `net_version` and `eth_chainId` methods shown below. These have no relationship to Avalanche's view of networkID and chainID, and are purely internal to the C-Chain. 
 
 ## Methods
 

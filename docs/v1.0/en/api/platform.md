@@ -438,7 +438,7 @@ platform.getBlockchains() ->
 }
 ```
 
-* `blockchains` is all of the blockchains that exists on the AVAX network.
+* `blockchains` is all of the blockchains that exists on the Avalanche network.
 * `id` is the blockchain's ID.
 * `subnetID` is the ID of the Subnet that validates this blockchain.
 * `vmID` is the ID of the Virtual Machine the blockchain runs.
@@ -745,19 +745,17 @@ curl -X POST --data '{
 }' -H 'content-type:application/json;' 127.0.0.1:9650/ext/P
 ```
 
-### platform.exportAVA
-
-(Note: This method will change to `exportAVAX` in the next release.)
+### platform.exportAVAX
 
 Send AVAX from an account on the P-Chain to an address on the X-Chain.  
 This transaction must be signed with the key of the account that
 the AVAX is sent from and which pays the transaction fee.  
-After issuing this transaction, you must call the X-Chain's [`importAVA`](./avm.md#avmimportava) method to complete the transfer.
+After issuing this transaction, you must call the X-Chain's [`importAVAX`](./avm.md#avmimportavax) method to complete the transfer.
 
 #### Signature
 
 ```go
-platform.exportAVA(
+platform.exportAVAX(
     {
         amount: int,
         to: string,
@@ -775,7 +773,7 @@ platform.exportAVA(
 ```json
 curl -X POST --data '{
     "jsonrpc": "2.0",
-    "method": "platform.exportAVA",
+    "method": "platform.exportAVAX",
     "params": {
         "to":"G5ZGXEfoWYNFZH5JF9C4QPKAbPTKwRbyB",
         "amount":1,
@@ -842,18 +840,18 @@ curl -X POST --data '{
 }
 ```
 
-### platform.importAVA
+### platform.importAVAX
 
 (Note: This method will change to `importAVAX` in the next release.)
 
 Complete a transfer of AVAX from the X-Chain to the P-Chain.
 
-Before this method is called, you must call the X-Chain's [`exportAVA`](./avm.md#avmexportava) method to initiate the transfer.
+Before this method is called, you must call the X-Chain's [`exportAVAX`](./avm.md#avmexportavax) method to initiate the transfer.
 
 #### Signature
 
 ```go
-platform.importAVA(
+platform.importAVAX(
     {
         to: string,
         payerNonce: int,
@@ -864,7 +862,7 @@ platform.importAVA(
 ```
 
 * `to` is the ID of the account the AVAX is sent to.
-  This must be the same as the `to` argument in the corresponding call to the X-Chain's `exportAVA`.
+  This must be the same as the `to` argument in the corresponding call to the X-Chain's `exportAVAX`.
 * `payerNonce` is the next unused nonce of the account specified in `to`.
 * `username` is the user that controls the account specified in `to`.
 * `tx` is the transaction, which should be sent to the network by calling `issueTx`.
@@ -874,7 +872,7 @@ platform.importAVA(
 ```json
 curl -X POST --data '{
     "jsonrpc": "2.0",
-    "method": "platform.importAVA",
+    "method": "platform.importAVAX",
     "params": {
         "username":"bob",
         "password":"loblaw",

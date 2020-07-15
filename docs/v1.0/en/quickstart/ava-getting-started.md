@@ -61,7 +61,7 @@ Build Gecko:
 ./scripts/build.sh
 ```
 
-The binary, named `ava`, is in `gecko/build`. 
+The binary, named `avalanche`, is in `gecko/build`. 
 
 #### Download Gecko Binary
 
@@ -73,13 +73,13 @@ For MacOS:
 Download the file named `gecko-osx-<VERSION>.zip`  
 Unzip the file with `unzip gecko-osx-<VERSION>.zip`  
 The resulting folder, `gecko-<VERSION>`, contains the binaries.  
-You can run the node with `./gecko-<VERSION>/ava`
+You can run the node with `./gecko-<VERSION>/avalanche`
 
 For Linux:  
 Download the file named `gecko-linux-<VERSION>.tar.gz`.  
 Unzip the file with `tar -xvf gecko-linux-<VERSION>.tar.gz`  
 The resulting folder, `gecko-<VERSION>`, contains the binaries.  
-You can run the node with `./gecko-<VERSION>/ava`
+You can run the node with `./gecko-<VERSION>/avalanche`
 
 ### Start a Node and Connect to Test Network
 
@@ -89,7 +89,7 @@ You can use it to play around in a low-stakes environment.
 To start a node and connect it to the Avalanche test net:
 
 ```sh
-./build/ava
+./build/avalanche
 ```
 
 You can use `Ctrl + C` to kill the node.
@@ -250,7 +250,7 @@ curl -X POST --data '{
     "params" :{
         "username"   :"YOUR USERNAME HERE",
         "password"   :"YOUR PASSWORD HERE",
-        "assetID"    :"AVA",
+        "assetID"    :"AVAX",
         "amount"     :1000,
         "to"         :"X-FxgGhoAwg3dPTPhHEmjgi27ZPmvc8jQmj"
     }
@@ -307,7 +307,7 @@ The response should look like this:
 
 You might also see that `status` is `Processing` if the network has not yet finalized the transaction.
 
-Once you see that the transaction is `Accepted`, check the balance of the `to` address to see that it has the AVA we sent:
+Once you see that the transaction is `Accepted`, check the balance of the `to` address to see that it has the AVAX we sent:
 
 ```sh
 curl -X POST --data '{
@@ -316,7 +316,7 @@ curl -X POST --data '{
     "method" :"avm.getBalance",
     "params" :{
         "address":"X-FxgGhoAwg3dPTPhHEmjgi27ZPmvc8jQmj",
-        "assetID"  :"AVA"
+        "assetID"  :"AVAX"
     }
 }' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/X
 ```
@@ -386,15 +386,14 @@ Let's send some AVAX to your P-Chain account from the X-Chain.
 The minimum stake amount is 10,000 nAVAX, so make sure you have at least this much AVAX in your X-Chain addresses.
 (If you need more, use the faucet a few more times.)
 
-The first step in transferring AVAX from the X-Chain to P-Chain is to call `avm.exportAVA`:
+The first step in transferring AVAX from the X-Chain to P-Chain is to call `avm.exportAVAX`:
 
-(Note: `avm.exportAVA` will change to `avm.exportAVAX` in the next release.)
 
 ```sh
 curl -X POST --data '{
     "jsonrpc":"2.0",
     "id"     :1,
-    "method" :"avm.exportAVA",
+    "method" :"avm.exportAVAX",
     "params" :{
         "to":"Bg6e45gxCUTLXcfUuoy3go2U6V3bRZ5jH",
         "amount": 10000,
@@ -407,14 +406,12 @@ curl -X POST --data '{
 The response contains the transaction ID.
 As before, you can check the transaction's status by calling `avm.getTxStatus`.
 
-The second and final step is to call `platform.importAVA`:
-
-(Note: `avm.importAVA` will change to `avm.importAVAX` in the next release.)
+The second and final step is to call `platform.importAVAX`:
 
 ```sh
 curl -X POST --data '{
     "jsonrpc": "2.0",
-    "method": "platform.importAVA",
+    "method": "platform.importAVAX",
     "params": {
     	"username":"YOUR USERNAME HERE",
     	"password":"YOUR PASSWORD HERE",

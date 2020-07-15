@@ -1,1 +1,1 @@
-# ava-coin-dynamics
+# avax-coin-dynamics

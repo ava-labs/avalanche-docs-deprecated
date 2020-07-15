@@ -91,10 +91,10 @@ transactions. New blockchain solutions that perform well trade off
 decentralization and security and opt for more centralized and insecure
 consensus mechanisms in order to achieve higher performance.
 
-On the flip side, AVA's constant-sized subsampling means that the
+On the flip side, Avalanche's constant-sized subsampling means that the
 platform can support high throughput (5000+ transactions per second) and
 low latency (1-2 second confirmations). These numbers are taken directly
-from a real, fully implemented AVA network running on 2000 nodes on AWS,
+from a real, fully implemented Avalanche network running on 2000 nodes on AWS,
 geo-distributed across the globe on low-end machines, without employing
 any "numbers tricks" that often times are present in other similar
 claims. Higher performance results (10,000+) can be achieved through
@@ -130,13 +130,13 @@ between the three known families of consensus protocols through a set of
 The Platform
 ------------
 
-The first version of the AVA platform, aims to be a platform for
+The first version of the Avalanche platform, aims to be a platform for
 enabling high performance, ultra-decentralized applications, as well as
 the issuance and trading of any arbitrary digital asset.
 
 ### An interoperable and Flexible Platform-of-Platforms
 
-AVA's biggest innovation at the platform level is the AVA plugin
+Avalanche's biggest innovation at the platform level is the plugin
 architecture, which allows developers to issue assets inside flexible
 and interoperable feature-specific-subnetworks (FSSs). FSSs are
 subnetworks that run a plugin. A plugin defines the behavior and
@@ -154,17 +154,17 @@ that define and implement their own unique business logic. A plugin may
 implement almost any functionality, from virtual machines to Intel SGX,
 and from ring signatures to zero knowledge proofs.
 
-For all those that require it, AVA will be the first platform to support
+For all those that require it, Avalanche will be the first platform to support
 the development of a rich marketplace of plugins that can enjoy strict
 compliance rulesets, privacy, and innovative new features. Such a
 flexible repository of FSSs allows both hobbyist developers as well as
 large enterprises to deploy fully compliant and interoperable business
-and system logic. The AVA token will provide the core infrastructure for
+and system logic. The AVAX token will provide the core infrastructure for
 enabling the security of the system while simultaneously providing the
 universal unit of exchange (i.e. interoperation) between any assets
-deployed on AVA.
+deployed on AVAX.
 
-The AVA platform will allow the tokenization of all types of assets.
+The Avalanche platform will allow the tokenization of all types of assets.
 This includes support for arbitrary scripting languages, multiple types
 of virtual machines (EVM, WASM, etc), and simple-to-use libraries for
 token creation. For example, developers can create an asset that has
@@ -173,7 +173,7 @@ amongst various platforms, enabling true backwards compatibility and
 new, more expressive, transactions.
 
 For public infrastructure developers, this means that dapps can be
-ported from existing platforms to AVA with little modification. For
+ported from existing platforms to Avalanche with little modification. For
 private enterprise developers, this means the ability to deploy dapps
 that must comply with strict regulatory and privacy guarantees. We
 believe that such flexibility, for the first time, allows a truly
@@ -195,7 +195,7 @@ ensure land ownership for a particular contract.
 
 ### Case study \#2: If-This-Then-That Cross-Chain Triggers
 
-AVA's modular plugin architecture makes it simple to enable
+Avalanche's modular plugin architecture makes it simple to enable
 "If-This-Then-That" functionality, wherein developers of an FSS (e.g.
 Purple) can interact with another FSS (e.g. Orange) via an IFTTT plugin.
 Per way of illustration, the IFTTT plugin could, for example, trigger an
@@ -207,24 +207,24 @@ being met on the Orange subnet, as illustrated in the figure below.
 In order for a non-US Resident to acquire US based securities they would
 usually have to work with a US-based securities broker. Such a broker
 would handle the compliance and custody of assets and would charge fees
-to generate a profit. Asset swaps on the AVA platform will be truly
+to generate a profit. Asset swaps on the Avalanche platform will be truly
 peer-to-peer. For example, an individual who passes compliance
 requirements and previously without access to financial products in a
 certain jurisdiction will be able to seamlessly purchase assets directly
-from a market. The AVA Platform's native support for compliance features
+from a market. The Avalanche Platform's native support for compliance features
 will cut out the middle men and enable frictionless value transfer
 between participating parties. The purchaser of assets would need only
 to pass the KYC process, comply with location regulation and own a
-wallet that supports assets on the AVA platform.
+wallet that supports assets on the Avalanche platform.
 
-The AVA Token
+The AVAX Token
 =============
 
 ### Payments
 
 True decentralized peer-to-peer payments are largely an unrealized dream
 for the industry due to the current lack of performance from incumbents.
-We envision AVA to be as powerful and easy to use as payments with Visa,
+We envision Avalanche to be as powerful and easy to use as payments with Visa,
 allowing thousands of transactions globally every second, in a fully
 trustless, decentralized manner. Furthermore, for merchants worldwide,
 we aim to provide a direct value proposition over Visa, namely lower
@@ -232,7 +232,7 @@ fees.
 
 ### Securing the system: staking
 
-On the AVA platform, sybil control will be achieved via staking. In
+On the Avalanche platform, sybil control will be achieved via staking. In
 order to validate, a participant will have to lock up coins (a stake).
 Validators (stakers) will be compensated for their validation services
 based on staking amount and staking duration, amongst other properties.
@@ -245,16 +245,16 @@ the network.
 
 ### Atomic swaps
 
-Besides providing the core security of the system, the AVA token will
-serve as the universal unit of exchange. From there, the AVA platform
+Besides providing the core security of the system, the AVAX token will
+serve as the universal unit of exchange. From there, the Avalanche platform
 will be able to support trustless atomic swaps natively on the platform
 enabling native, truly decentralized exchanges of any type of asset
-directly on AVA.
+directly on Avalanche.
 
 ### Governance
 
-Governance is critical to the development and adoption of the AVA
-platform because -- as with all other types of systems -- AVA will also
+Governance is critical to the development and adoption of the Avalanche
+platform because -- as with all other types of systems -- Avalanche will also
 face natural evolutions and updates. There is on-chain governance for
 critical parameters of the network where participants will be able to
 vote on changes to the network and settle network upgrade decisions
@@ -262,28 +262,28 @@ democratically. This will include factors such as the minimum staking
 amount, minting rate, as well as other economic parameters. This enables
 the platform to effectively perform dynamic parameter optimization
 through a crowd oracle. However, unlike more generic governance
-platforms out there, AVA does not allow governance of arbitrary aspects
+platforms out there, Avalanche does not allow governance of arbitrary aspects
 of the system, ensuring a much higher degree of assurance and safety for
-participants in AVA. Lastly, all governable parameters are subject to
+participants in Avalanche. Lastly, all governable parameters are subject to
 limited change within specific time bounds, ensuring that sporadic,
 black swan events to do not affect the system in negative ways.
 
 ### Monetary Policy
 
-The objective of the AVA's monetary policy is to balance the incentives
+The objective of Avalanche's monetary policy is to balance the incentives
 of users to stake the coin versus use it to interact with the variety of
-services available on the AVA platform. Participants in the AVA network
+services available on the Avalanche platform. Participants in the Avalanche network
 collectively act as a decentralized reserve bank. We follow the example
 of the federal reserve bank, which utilizes several tools to accomplish
-their monetary policy objectives. The levers available on AVA are
+their monetary policy objectives. The levers available on Avalanche are
 staking rewards, fees, and airdrops, all of which are influenced by
 governable parameters. Staking rewards are set by on-chain governance.
 Staking can be induced by increasing fees or increasing staking rewards.
-On the other hand, we can induce increased engagement with the AVA
+On the other hand, we can induce increased engagement with the Avalanche
 platform services by lowering fees, decreasing the staking reward.
 
 [^1]: Forward-looking statements generally relate to future events or
-    our future performance. This includes, but is not limited to, AVA's
+    our future performance. This includes, but is not limited to, Avalanche's
     projected performance; the expected development of its business and
     projects; execution of its vision and growth strategy; and
     completion of projects that are currently underway, in development
@@ -294,7 +294,7 @@ platform services by lowering fees, decreasing the staking reward.
     Such forward-looking statements necessarily involve known and
     unknown risks, which may cause actual performance and results in
     future periods to differ materially from any projections expressed
-    or implied herein. Ava undertakes no obligation to update
+    or implied herein. Ava Labs undertakes no obligation to update
     forward-looking statements. Although forward-looking statements are
     our best prediction at the time they are made, there can be no
     assurance that they will prove to be accurate, as actual results and
