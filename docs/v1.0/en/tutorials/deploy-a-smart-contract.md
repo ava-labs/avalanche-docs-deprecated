@@ -2,6 +2,8 @@
 
 The Avalanche network is a subnet that has three chains: P-Chain, X-Chain, and C-Chain.
 
+![Avalanche network infrastructure](../../../images/network-infrastructure.png)
+
 The C-Chain is an instance of the Ethereum Virtual Machine powered by Avalanche’s Snowman consensus engine.
 
 The [C-Chain RPC](https://docs.avax.network/v1.0/en/api/evm) can do anything a typical Ethereum client can by using the Ethereum-standard RPC calls. The immediate benefits of using the C-Chain rather than Ethereum are quick blocktimes which finalize in under 3 seconds, high transactional throughput, and lightweight clients that do not require Proof of Work. These properties that could considerably improve the performance of DApps and the user experience.
