@@ -1,6 +1,6 @@
 # Networking
 
-Avalanche network defines the core communication format between Avalanche nodes. It uses the [primitive serialization](../serialization-primitives) format for payload packing and [Salticidae's](https://github.com/ava-labs/salticidae-go) message format. The opcode field is one byte.
+Avalanche network defines the core communication format between Avalanche nodes. It uses the [primitive serialization](../serialization-primitives) format for payload packing.
 
 `"Containers"` are mentioned extensively in the description. A Container is simply a generic term for blocks or vertices, without needing to specify whether the consensus algorithm is DAG or Chain.
 
