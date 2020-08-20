@@ -814,7 +814,7 @@ The transaction identifier for a base tx is `0x00000000`.
 An unsigned base tx contains a `CodecID`, `ID`, `NetworkID`, `BlockchainID`, `Outputs`, `Inputs`, and `Memo`.
 
 - **`CodecID`** is a short that defines which codec version. Default is `0x0000`.
-- **`ID`** is an int that defines which transaction type this is. Default is `0x00000000`.
+- **`TypeID`** is an int that defines which transaction type this is. Default is `0x00000000`.
 - **`NetworkID`** is an int that defines which network this transaction is meant to be issued to. This value is meant to support transaction routing and is not designed for replay attack prevention.
 - **`BlockchainID`** is a 32-byte array that defines which blockchain this transaction was issued to. This is used for replay attack prevention for transactions that could potentially be valid across network or blockchain.
 - **`Outputs`** is an array of transferable output objects. Outputs must be sorted lexicographically by their serialized representation. The total quantity of the assets created in these outputs must be less than or equal to the total quantity of each asset consumed in the inputs minus the transaction fee.
@@ -827,7 +827,7 @@ An unsigned base tx contains a `CodecID`, `ID`, `NetworkID`, `BlockchainID`, `Ou
 +---------------+----------------------+-----------------------------------------+
 | codec_id      : short                |                                 2 bytes |
 +---------------+----------------------+-----------------------------------------+
-| id            : int                  |                                 4 bytes |
+| type_id       : int                  |                                 4 bytes |
 +---------------+----------------------+-----------------------------------------+
 | network_id    : int                  |                                 4 bytes |
 +---------------+----------------------+-----------------------------------------+
@@ -848,7 +848,7 @@ An unsigned base tx contains a `CodecID`, `ID`, `NetworkID`, `BlockchainID`, `Ou
 ```protobuf
 message BaseTx {
     uint16 codec_id = 1;         // 02 bytes
-    uint32 id = 2;               // 04 bytes
+    uint32 type_id = 2;          // 04 bytes
     uint32 network_id = 3;       // 04 bytes
     bytes blockchain_id = 4;     // 32 bytes
     repeated Output outputs = 5; // 04 bytes + size(outs)
@@ -862,7 +862,7 @@ message BaseTx {
 Let's make an unsigned base tx that uses the inputs and outputs from the previous examples:
 
 - **`CodecID`**: `0`
-- **`ID`**: `0`
+- **`TypeID`**: `0`
 - **`NetworkID`**: `3`
 - **`BlockchainID`**: `0xffffffffeeeeeeeeddddddddcccccccbbbbbbbbaaaaaaaa9999999988888888`
 - **`Outputs`**:
@@ -874,7 +874,7 @@ Let's make an unsigned base tx that uses the inputs and outputs from the previou
 ```splus
 [
     CodecID      <- 0 = 0x0000
-    ID           <- 0 = 0x00000000
+    TypeID       <- 0 = 0x00000000
     NetworkID    <- 3 = 0x00000003
     BlockchainID <- 0xffffffffeeeeeeeeddddddddcccccccbbbbbbbbaaaaaaaa9999999988888888
     Outputs      <- [
@@ -889,7 +889,7 @@ Let's make an unsigned base tx that uses the inputs and outputs from the previou
 [
     // codec_id:
     0x00, 0x00,
-    // id:
+    // type_id:
     0x00, 0x00, 0x00, 0x00,
     // networkID:
     0x00, 0x00, 0x00, 0x03,
