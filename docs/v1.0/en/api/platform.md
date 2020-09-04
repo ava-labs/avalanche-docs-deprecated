@@ -159,7 +159,7 @@ The Validator must validate the Primary Network for the entire duration they val
 ```go
 platform.addSubnetValidator(
     {
-        id: string,
+        nodeID: string,
         subnetID: string,
         startTime: int,
         endTime: int,
@@ -778,144 +778,6 @@ curl -X POST --data '{
 }' -H 'content-type:application/json;' 127.0.0.1:9650/ext/P
 ```
 
-
-### platform.getUTXOs
-
-Get the UTXOs that reference a given address.
-
-#### Signature
-
-```go
-platform.getUTXOs({addresses: string}) -> {utxos: []string}
-```
-
-* `UTXOs` is a list of UTXOs such that each UTXO references at least one address in `addresses`
-
-#### Example Call
-
-```json
-curl -X POST --data '{
-    "jsonrpc":"2.0",
-    "id"     :1,
-    "method" :"platform.getUTXOs",
-    "params" :{
-        "addresses":["P-avax1s994jad0rtwvlfpkpyg2yau9nxt60qqfv023qx"]
-    }
-}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/P
-```
-
-#### Example Response
-
-```go
-{
-    "jsonrpc": "2.0",
-    "result": {
-        "utxos": [
-            "117xBYKW2hg64MpJr6zpm4s5ocAVN4bG8UnfcmhJCHdoLJjjhkxtNTyCgC48LydTwJdao6mSii7JHxg57Z1KavZFtY5V78v173FU2vjJBudEfLbVb2pgkZXrFUULvW5cZLeTRFq5GN63C13xmLAibj1mz39KUySj7PEX8A"
-        ]
-    },
-    "id": 1
-}
-```
-
-### platform.exportAVAX
-
-Send AVAX from an address on the P-Chain to an address on the X-Chain. 
-After issuing this transaction, you must call the X-Chain's [`importAVAX`](./avm.md#avmimportavax) method to complete the transfer.
-
-#### Signature
-
-```go
-platform.exportAVAX(
-    {
-        amount: int,
-        to: string,
-        username: string,
-        password:string
-    }
-) -> {txID: string}
-```
-
-* `amount` is the amount of nAVAX to send.
-* `to` is the address on the X-Chain to send the AVAX to.
-* `username` is the user sending the AVAX and paying the transaction fee.
-* `password` is `username`'s password.
-* `txID` is the ID of this transaction.
-
-#### Example Call
-
-```json
-curl -X POST --data '{
-    "jsonrpc": "2.0",
-    "method": "platform.exportAVAX",
-    "params": {
-        "to":"X-avax1yv8cwj9kq3527feemtmh5gkvezna5xys08mxet",
-        "amount":1,
-        "username":"username",
-        "password":"password"
-    },
-    "id": 1
-}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/P
-```
-
-#### Example Response
-
-```json
-{
-    "jsonrpc": "2.0",
-    "result": {
-        "txID": "2Kz69TNBSeABuaVjKa6ZJCTLobbe5xo9c5eU8QwdUSvPo2dBk3"
-    },
-    "id": 1
-}
-```
-
-### platform.exportKey
-
-Get the private key that controls a given address.  
-The returned private key can be added to a user with `platform.importKey`.
-
-#### Signature
-
-```go
-platform.exportKey({
-    username: string,
-    password:string,
-    address:string
-}) -> {privateKey: string}
-```
-
-* `username` is the user that controls `address`.
-* `password` is `username`'s password.
-* `privateKey` is the string representation of the private key that controls `address`.
-
-#### Example Call
-
-```json
-curl -X POST --data '{
-    "jsonrpc":"2.0",
-    "id"     :1,
-    "method" :"platform.exportKey",
-    "params" :{
-        "username" :"username",
-        "password":"password",
-        "address": "P-avax1zwp96clwehpwm57r9ftzdm7rnuslrunj68ua3r"
-    }
-}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/P
-```
-
-#### Example Response
-
-```json
-{
-    "jsonrpc":"2.0",
-    "id"     :1,
-    "result" :{
-        "privateKey":"PrivateKey-Lf49kAJw3CbaL783vmbeAJvhscJqC7vi5yBYLxw2XfbzNS5RS"
-    }
-}
-```
-
 ### platform.getUTXOs
 
 Gets the UTXOs that reference a given set address.
@@ -1034,6 +896,106 @@ This gives response:
 ```
 
 Since `numFetched` is less than `limit`, we know that we are done fetching UTXOs and don't need to call this method again.
+
+
+### platform.exportAVAX
+
+Send AVAX from an address on the P-Chain to an address on the X-Chain. 
+After issuing this transaction, you must call the X-Chain's [`importAVAX`](./avm.md#avmimportavax) method to complete the transfer.
+
+#### Signature
+
+```go
+platform.exportAVAX(
+    {
+        amount: int,
+        to: string,
+        username: string,
+        password:string
+    }
+) -> {txID: string}
+```
+
+* `amount` is the amount of nAVAX to send.
+* `to` is the address on the X-Chain to send the AVAX to.
+* `username` is the user sending the AVAX and paying the transaction fee.
+* `password` is `username`'s password.
+* `txID` is the ID of this transaction.
+
+#### Example Call
+
+```json
+curl -X POST --data '{
+    "jsonrpc": "2.0",
+    "method": "platform.exportAVAX",
+    "params": {
+        "to":"X-avax1yv8cwj9kq3527feemtmh5gkvezna5xys08mxet",
+        "amount":1,
+        "username":"username",
+        "password":"password"
+    },
+    "id": 1
+}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/P
+```
+
+#### Example Response
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "txID": "2Kz69TNBSeABuaVjKa6ZJCTLobbe5xo9c5eU8QwdUSvPo2dBk3"
+    },
+    "id": 1
+}
+```
+
+### platform.exportKey
+
+Get the private key that controls a given address.  
+The returned private key can be added to a user with `platform.importKey`.
+
+#### Signature
+
+```go
+platform.exportKey({
+    username: string,
+    password:string,
+    address:string
+}) -> {privateKey: string}
+```
+
+* `username` is the user that controls `address`.
+* `password` is `username`'s password.
+* `privateKey` is the string representation of the private key that controls `address`.
+
+#### Example Call
+
+```json
+curl -X POST --data '{
+    "jsonrpc":"2.0",
+    "id"     :1,
+    "method" :"platform.exportKey",
+    "params" :{
+        "username" :"username",
+        "password":"password",
+        "address": "P-avax1zwp96clwehpwm57r9ftzdm7rnuslrunj68ua3r"
+    }
+}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/P
+```
+
+#### Example Response
+
+```json
+{
+    "jsonrpc":"2.0",
+    "id"     :1,
+    "result" :{
+        "privateKey":"PrivateKey-Lf49kAJw3CbaL783vmbeAJvhscJqC7vi5yBYLxw2XfbzNS5RS"
+    }
+}
+```
+
 
 ### platform.importAVAX
 
