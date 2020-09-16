@@ -55,6 +55,7 @@ platform.addDelegator(
 * `username` is the user that pays the transaction fee.
 * `password` is `username`'s password.
 * `txID` is the transaction ID
+* `changeAddr` in the result is the address where any change was sent.
 
 #### Example Call
 
@@ -127,6 +128,7 @@ platform.addValidator(
 * `username` is the user that pays the transaction fee.
 * `password` is `username`'s password.
 * `txID` is the transaction ID
+* `changeAddr` in the result is the address where any change was sent.
 
 #### Example Call
 
@@ -200,6 +202,7 @@ platform.addSubnetValidator(
 * `username` is the user that pays the transaction fee.
 * `password` is `username`'s password.
 * `txID` is the transaction ID.
+* `changeAddr` in the result is the address where any change was sent.
 
 #### Example call
 
@@ -309,6 +312,7 @@ platform.createBlockchain(
 * `username` is the user that pays the transaction fee. This user must have a sufficient number of the subnet's control keys.
 * `password` is `username`'s password.
 * `txID` is the transaction ID.
+* `changeAddr` in the result is the address where any change was sent.
 
 #### Example Call
 
@@ -373,6 +377,8 @@ platform.createSubnet(
 * `changeAddr` is the address any change will be sent to. If omitted, change is sent to one of the addresses controlled by the user.
 * `username` is the user that pays the transaction fee.
 * `password` is `username`'s password.
+* `txID` is this transaction's ID.
+* `changeAddr` in the result is the address where any change was sent.
 
 #### Example Call
 
@@ -1201,7 +1207,7 @@ platform.importAVAX(
     }
 ) -> 
 {
-    tx: string,
+    txID: string,
     changeAddr: string
 }
 ```
@@ -1213,6 +1219,8 @@ platform.importAVAX(
 * `changeAddr` is the address any change will be sent to. If omitted, change is sent to one of the addresses controlled by the user.
 * `username` is the user that controls the address specified in `to`.
 * `password` is `username`'s password.
+* `txID` is this transaction's ID.
+* `changeAddr` in the result is the address where any change was sent.
 
 #### Example Call
 
