@@ -39,7 +39,11 @@ platform.addValidator(
         username: string,
         password: string
     }
-) -> {txID: string}
+) ->
+{
+    txID: string,
+    changeAddr: string
+}
 ```
 
 Let's go through and examine these arguments.
@@ -206,7 +210,11 @@ platform.addSubnetValidator(
         username: string,
         password: string
     }
-) -> {txID: string}
+) ->
+{
+    txID: string,
+    changeAddr: string,
+}
 ```
 
 Let's examine the parameters:
