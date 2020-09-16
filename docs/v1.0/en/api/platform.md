@@ -441,6 +441,7 @@ platform.exportAVAX(
 * `username` is the user sending the AVAX and paying the transaction fee.
 * `password` is `username`'s password.
 * `txID` is the ID of this transaction.
+* `changeAddr` in the result is the address where any change was sent.
 
 #### Example Call
 
