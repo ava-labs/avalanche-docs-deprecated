@@ -219,7 +219,7 @@ avm.createFixedCapAsset({
     changeAddr: string, (optional)
     username: string,  
     password: string
-}) -> 
+}) ->
 {
     assetID: string,
     changeAddr: string
@@ -233,6 +233,7 @@ avm.createFixedCapAsset({
 * `username` and `password` denote the user paying the transaction fee.
 * Each element in `initialHolders` specifies that `address` holds `amount` units of the asset at genesis.
 * `assetID` is the ID of the new asset.
+* `changeAddr` in the result is the address where any change was sent.
 
 #### Example Call
 
@@ -368,6 +369,7 @@ avm.createVariableCapAsset({
 * `changeAddr` is the address any change will be sent to. If omitted, change is sent to one of the addresses controlled by the user.
 * `username` pays the transaction fee.
 * `assetID` is the ID of the new asset.
+* `changeAddr` in the result is the address where any change was sent.
 
 #### Example Call
 
@@ -440,6 +442,8 @@ avm.exportAVAX({
 * `amount` is the amount of nAVAX to send.
 * `changeAddr` is the address any change will be sent to. If omitted, change is sent to one of the addresses controlled by the user.
 * The AVAX is sent from addresses controlled by `username`
+* `txID` is this transaction's ID.
+* `changeAddr` in the result is the address where any change was sent.
 
 #### Example Call
 
@@ -1041,6 +1045,8 @@ avm.Send({
 * `changeAddr` is the address any change will be sent to. If omitted, change is sent to one of the addresses controlled by the user.
 * The asset is sent from addresses controlled by user `username`.
   (Of course, that user will need to hold at least the balance of the asset being sent.)
+* `txID` is this transaction's ID.
+* `changeAddr` in the result is the address where any change was sent.
 
 #### Example Call
 
