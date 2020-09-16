@@ -109,7 +109,7 @@ platform.addValidator(
         username: string,
         password: string
     }
-) -> 
+) ->
 {
     txID: string,
     changeAddr: string
@@ -186,7 +186,7 @@ platform.addSubnetValidator(
         username: string,
         password: string
     }
-) -> 
+) ->
 {
     txID: string,
     changeAddr: string,
