@@ -1041,8 +1041,8 @@ avm.Send({
 * Sends `amount` units of asset with ID `assetID` to address `to`.
   `amount` is denominated in the smallest increment of the asset.
   For AVAX this is 1 nAVAX (one billionth of 1 AVAX.)
-* You can attach a `memo`, whose length can be up to 256 bytes.
 * `changeAddr` is the address any change will be sent to. If omitted, change is sent to one of the addresses controlled by the user.
+* You can attach a `memo`, whose length can be up to 256 bytes.
 * The asset is sent from addresses controlled by user `username`.
   (Of course, that user will need to hold at least the balance of the asset being sent.)
 * `txID` is this transaction's ID.
