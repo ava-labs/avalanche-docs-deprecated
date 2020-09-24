@@ -1208,7 +1208,7 @@ Send a quantity of an asset to an address.
 #### Signature
 
 ```go
-avm.Send({
+avm.send({
     amount: int,
     assetID: string,
     to: string,
@@ -1239,6 +1239,76 @@ curl -X POST --data '{
         "amount"    : 10000,
         "to"        : "X-avax1yzt57wd8me6xmy3t42lz8m5lg6yruy79m6whsf",
         "from":["X-avax1s65kep4smpr9cnf6uh9cuuud4ndm2z4jguj3gp"],
+        "changeAddr": "X-avax1turszjwn05lflpewurw96rfrd3h6x8flgs5uf8",
+        "memo"      : "hi, mom!",
+        "username"  : "userThatControlsAtLeast10000OfThisAsset",
+        "password"  : "myPassword"
+    }
+}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/X
+```
+
+#### Example Response
+
+```json
+{
+    "jsonrpc":"2.0",
+    "id"     :1,
+    "result" :{
+        "txID":"2iXSVLPNVdnFqn65rRvLrsu8WneTFqBJRMqkBJx5vZTwAQb8c1",
+        "changeAddr": "X-avax1turszjwn05lflpewurw96rfrd3h6x8flgs5uf8"
+    }
+}
+```
+
+### avm.sendMultiple
+
+Send a transaction with multiple outputs.
+
+#### Signature
+
+```go
+avm.sendMultiple({
+    outputs: []{
+        amount: int,
+        assetID: string,
+        to: string,
+    },
+    from: []string, (optional)
+    changeAddr: string, (optional)
+    memo: string, (optional)
+    username: string,
+    password: string
+}) -> {txID: string}
+```
+
+* Sends `amount` units of asset with ID `assetID` to address `to`. `amount` is denominated in the smallest increment of the asset. For AVAX this is 1 nAVAX (one billionth of 1 AVAX.)
+* `to` is the X-Chain address the asset is sent to.
+* `from` are the addresses that you want to use for this operation. If omitted, uses any of your addresses as needed.
+* `changeAddr` is the address any change will be sent to. If omitted, change is sent to one of the addresses controlled by the user.
+* You can attach a `memo`, whose length can be up to 256 bytes.
+* The asset is sent from addresses controlled by user `username`. (Of course, that user will need to hold at least the balance of the asset being sent.)
+
+#### Example Call
+
+```json
+curl -X POST --data '{
+    "jsonrpc":"2.0",
+    "id"     :1,
+    "method" :"avm.sendMultiple",
+    "params" :{
+        "outputs": [
+            {
+                "assetID"   : "AVAX",
+                "amount"    : 10000,
+                "to"        : "X-avax1yzt57wd8me6xmy3t42lz8m5lg6yruy79m6whsf",
+            },
+            {
+                "assetID"   : "AVAX",
+                "amount"    : 3000,
+                "to"        : "X-avax1mwlnrzv0ezdycx4qhqj77j55cwgcvtf29zvmpy",
+            }
+        ],
+        "from"      : ["X-avax1s65kep4smpr9cnf6uh9cuuud4ndm2z4jguj3gp"],
         "changeAddr": "X-avax1turszjwn05lflpewurw96rfrd3h6x8flgs5uf8",
         "memo"      : "hi, mom!",
         "username"  : "userThatControlsAtLeast10000OfThisAsset",
