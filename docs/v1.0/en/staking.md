@@ -10,7 +10,7 @@ Validators create new blocks/vertices and process transactions.
 As part of Avalanche consensus, validators repeatedly sample each other.
 
 The probability that a given validator is sampled is proportional to its **stake**.
-A stake is a bond, in AVAX tokens, put forward by a node in order to become a validator.
+A stake is a bond, in AVAX tokens, put forward by a node to become a validator.
 
 When you add a node to the validator set you specify:
 
@@ -29,45 +29,19 @@ If you're not sure, ask for help on [Discord.](https://chat.avalabs.org)
 
 If you're running a validator, it's important that you follow some best practices to ensure that you receive a reward and keep your funds safe.
 
-### Networking for validators
+### Networking
 
-Your node must be able to send and receive traffic on the P2P port (`9651` by default.)
+Your node must be able to receive and send traffic from all addresses on the P2P port (`9651` by default.)
 
-#### If your node is behind a router
+AvalancheGo attempts NAT traversal on startup to ensure that it can send and receive traffic on the P2P port. 
+If your node is behind a router (e.g. in your home) your node can receive and send traffic properly without any action on your part thanks to NAT traversal.
+However, you may want to also set up port forwarding on your router to ensure your node is well-connected if NAT traversal fails.
+If your node is on a cloud service, make sure you've configured the security settings to allow incoming and outgoing traffic on the P2P port.
 
-When you start your node, you may see that it says that NAT traversal failed.
-If this is the case, you must set up forwarding for port `9651` and you must run your
-node with argument `--public-ip=[NODE PUBLIC IP]`.  
-If you do not see this warning, you should be OK.
+If your node is a validator, start your node with command line argument `--public-ip=[YOUR NODE'S PUBLIC IP HERE]` to ensure it is well connected.
 
-#### If your node is not behind a router (e.g. on a cloud service)
-
-When you start your node, it will say that NAT traversal has failed. This is expected.
-Start your node with argument `--public-ip=[NODE PUBLIC IP]` and make sure that your network settings allow traffic on port `9651`.
-
-#### HTTP Host
-
-To make API calls to your node from remote machines, allow traffic on the API port (`9650` by default) 
-and run your node with argument `--http-host=`
-
-If you do this, you should disable all APIs you will not use via command-line arguments.
-You should configure your network to only allow access to the API port from trusted machines (e.g. your personal computer.) 
-
-#### Why is my uptime low?
-
-Every validator on the Avalanche network keeps track of the uptime of other validators.
-You can see the connections a node has by calling `info.peers`, as well as the uptime of each connection.
-**This is only one node's point of view**. Other nodes may perceive the uptime of your node differently.
-Just because one node perceives your uptime as being low does not mean that you will not receive a staking reward.
-
-The likely reason that your node is not connected to another node is that NAT traversal failed and you did not start your node with `--public-ip=[NODE'S PUBLIC IP]`.
-
-In the future we will add better monitoring to make it easier to verify that your node is well-connected.
-
-#### What if I see that NAT traversal failed?
-
-If you're on a cloud service, this is expected.
-If you're behind a router, make sure that you have port forwarding set up. See above.
+If you want to make API calls to your node from remote machines, also allow traffic on the API port (`9650` by default.) 
+If you do so, allow access to the smallest set of IP addresses possible.
 
 ### Secret Management
 
@@ -98,7 +72,7 @@ If you earned a reward, it is sent to the address you specified when you added y
 
 ## Delegators
 
-You can stake your own tokens in order to increase the sampling weight of another validator.
+You can stake your tokens to increase the sampling weight of another validator.
 This is called delegation.
 
 When you delegate stake to a validator you specify:
@@ -133,4 +107,4 @@ If you earned a reward, it is sent to the address you specified when you delegat
 * The minimum delegation fee rate is 2%
 * The maximum weight of a validator (their own stake + stake delegated to them) is the minimum of 3 x 10<sup>6</sup> AVAX and 5 times the amount the validator staked.
   For example, if you staked 2,000 AVAX to become a validator, only 8000 AVAX can be delegated to your node total (not per delegator)
-* The minimum percentage of the time a validator must be correct and online in order to receive a reward is 60%
+* The minimum percentage of the time a validator must be correct and online to receive a reward is 60%
