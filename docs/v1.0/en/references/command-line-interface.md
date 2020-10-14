@@ -296,12 +296,12 @@ The default value is `false`.
 This option lets one specify on which port the throughput server, if enabled, will listen. The default value is `9652`.
 
 `--conn-meter-reset-duration` (Duration):
+
 `--conn-meter-max-conns` (int):
 
-Controls the number of incoming connections allowed by IP address.
+Used in conjunction, controls the number of incoming connections allowed by IP address.
 
-Example:
-`--conn-meter-reset-duration=5s --conn-meter-max-conns=1`
+Example: `--conn-meter-reset-duration=5s --conn-meter-max-conns=1`
 
 Disconnect IP connection requests from the same IP address
 when there is more than `1` connection from that ip address in the last `5 seconds`.
