@@ -137,7 +137,7 @@ This overrides `--public-ip`, will poll the remote service every `--dynamic-upda
 `--dynamic-update-duration` (duration):
 
 The time between poll events for `--dynamic-public-ip` or NAT traversal.
-The recommended min is 1 minute, the default is 5 minutes.
+The recommended minimum is 1 minute, the default is 5 minutes.
 
 `--plugin-dir` (string, file path):
 
