@@ -129,6 +129,16 @@ The identity of the network the node should connect to. Can be one of:
 
 Validators must know their public facing IP addresses so they can let other nodes know how to connect to them. If this argument is not provided, the node will attempt to perform NAT traversal to get the node's public IP. Should be set to `127.0.0.1` to create a local network. The default value is `""`.
 
+`--dynamic-public-ip` (string):
+
+Valid values if param is present: `ifconfig` or `opendns`.
+This overrides `--public-ip`, will poll the remote service every `--dynamic-update-duration` and update the nodes public IP address.
+
+`--dynamic-update-duration` (duration):
+
+The time between poll events for `--dynamic-public-ip` or NAT traversal.
+The recommended min is 1 minute, the default is 5 minutes.
+
 `--plugin-dir` (string, file path):
 
 Specifies the directory in which the `evm` plugin is kept. Defaults to `"$HOME/.avalanchego/build/plugins"`.
