@@ -521,6 +521,7 @@ Let's make a base tx that uses the inputs and outputs from the previous examples
 An unsigned add validator tx contains a `BaseTx`, `Validator`, `Stake`, `RewardsOwner`, and `Shares`. The `TypeID` for this type is `0x0000000c`.
 
 - **`BaseTx`**
+- **`Validator`** Validator has a `NodeID`, `StartTime`, `EndTime`, and `Weight`
     - **`NodeID`** is 20 bytes which is the node ID of the delegatee.
     - **`StartTime`** is a long which is the Unix time when the delegator starts delegating.
     - **`EndTime`** is a long which is the Unix time when the delegator stops delegating (and staked AVAX is returned).
@@ -831,7 +832,7 @@ Let's make an unsigned add delegator tx that uses the inputs and outputs from th
 
 - **`BaseTx`**: `"Example BaseTx as defined above with ID set to 0e"`
 - **`NodeID`**: `0xe9094f73698002fd52c90819b457b9fbc866ab80`
-- **`StarTime`**: `0x000000005f21f31d`
+- **`StartTime`**: `0x000000005f21f31d`
 - **`EndTime`**: `0x000000005f497dc6`
 - **`Weight`**: `0x000000000000d431`
 - **`Stake`**: `0x0000000139c33a499ce4c33a3b09cdd2cfa01ae70dbf2d18b2d7d168524440e55d55008800000007000001d1a94a2000000000000000000000000001000000013cb7d3842e8cee6a0ebd09f1fe884f6861e1b29c`
@@ -841,7 +842,7 @@ Let's make an unsigned add delegator tx that uses the inputs and outputs from th
 [
     BaseTx       <- 0x0000000e000030390000000000000000000000000000000000000000000000000000000000000006870b7d66ac32540311379e5b5dbad28ec7eb8ddbfc8f4d67299ebb48475907a0000000700000000ee5be5c000000000000000000000000100000001da2bee01be82ecc00c34f361eda8eb30fb5a715cdfafbdf5c81f635c9257824ff21c8e3e6f7b632ac306e11446ee540d34711a15000000016870b7d66ac32540311379e5b5dbad28ec7eb8ddbfc8f4d67299ebb48475907a0000000500000000ee6b28000000000100000000
     NodeID       <- 0xe9094f73698002fd52c90819b457b9fbc866ab80
-    StarTime     <- 0x000000005f21f31d
+    StartTime     <- 0x000000005f21f31d
     EndTime      <- 0x000000005f497dc6
     Weight       <- 0x000000000000d431
     Stake        <- 0x0000000139c33a499ce4c33a3b09cdd2cfa01ae70dbf2d18b2d7d168524440e55d55008800000007000001d1a94a2000000000000000000000000001000000013cb7d3842e8cee6a0ebd09f1fe884f6861e1b29c
@@ -1508,7 +1509,7 @@ A StakeableLockIn contains a `TypeID`, `Locktime` and `TransferableIn`.
 
 - **`TypeID`** is the ID for this output type. It is `0x00000015`.
 - **`Locktime`** is a long that contains the unix timestamp before which the input can be consumed only to stake. The unix timestamp is specific to the second.
-- **`TransferableIn`** is a transferable input object.
+- **`Input`** is an input object.
 
 #### Gantt StakeableLockIn Specification
 
@@ -1518,9 +1519,9 @@ A StakeableLockIn contains a `TypeID`, `Locktime` and `TransferableIn`.
 +-----------------+-------------------+--------------------------------+
 | locktime        : long              |                        8 bytes |
 +-----------------+-------------------+--------------------------------+
-| transferable_in : TransferableInput |          size(transferable_in) |
+| in  : Input |          size(in) |
 +-----------------+-------------------+--------------------------------+
-                                    | 12 + size(transferable_in) bytes |
+                                    | 12 + size(in) bytes |
                                     +----------------------------------+
 ```
 
@@ -1528,9 +1529,9 @@ A StakeableLockIn contains a `TypeID`, `Locktime` and `TransferableIn`.
 
 ```protobuf
 message StakeableLockIn {
-    uint32 type_id = 1;                    // 04 bytes
-    uint64 locktime = 2;                   // 08 bytes
-    TransferableInput transferable_in = 3; // size(transferable_in)
+    uint32 type_id = 1;      // 04 bytes
+    uint64 locktime = 2;     // 08 bytes
+    Input in = 3;            // size(in)
 }
 ```
 
@@ -1540,13 +1541,13 @@ Let's make a StakeableLockIn with:
 
 - **`TypeID`**: 21
 - **`Locktime`**: 54321
-- **`TransferableIn`**: "Example SECP256K1 Transfer Input as defined above"
+- **`Input`**: "Example SECP256K1 Transfer Input as defined above"
 
 ```splus
 [
     TypeID    <- 0x00000015
     Locktime  <- 0x000000000000d431
-    TransferableIn <- [
+    Input <- [
         f1e1d1c1b1a191817161514131211101f0e0d0c0b0a09080706050403020100000000005000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f0000000500000000075bcd150000000100000000,
     ]
 ]
@@ -1556,7 +1557,7 @@ Let's make a StakeableLockIn with:
     0x00, 0x00, 0x00, 0x15,
     // locktime:
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xd4, 0x31,
-    // transferable_in
+    // in:
     0xf1, 0xe1, 0xd1, 0xc1, 0xb1, 0xa1, 0x91, 0x81,
     0x71, 0x61, 0x51, 0x41, 0x31, 0x21, 0x11, 0x01,
     0xf0, 0xe0, 0xd0, 0xc0, 0xb0, 0xa0, 0x90, 0x80,
@@ -1578,11 +1579,11 @@ A StakeableLockOut is an output that is locked until its locktime, but can be st
 
 #### What StakeableLockOut Contains
 
-A StakeableLockOut contains a `TypeID`, `Locktime` and `TransferableOut`.
+A StakeableLockOut contains a `TypeID`, `Locktime` and `Output`.
 
 - **`TypeID`** is the ID for this output type. It is `0x00000016`.
 - **`Locktime`** is a long that contains the unix timestamp before which the output can be consumed only to stake. The unix timestamp is specific to the second.
-- **`transferableout`**: "Example SECP256K1 Transfer Output as defined above"
+- **`Output`**: "Example SECP256K1 Transfer Output as defined above"
 
 #### Gantt StakeableLockOut Specification
 
@@ -1592,19 +1593,19 @@ A StakeableLockOut contains a `TypeID`, `Locktime` and `TransferableOut`.
 +------------------+--------------------+--------------------------------+
 | locktime         : long               |                        8 bytes |
 +------------------+--------------------+--------------------------------+
-| transferable_out : TransferableOutput |         size(transferable_out) |
+| out              : Output             |                      size(out) |
 +------------------+--------------------+--------------------------------+
-                                     | 12 + size(transferable_out) bytes |
-                                     +-----------------------------------+
+                                                  | 12 + size(out) bytes |
+                                                  +----------------------+
 ```
 
 #### Proto StakeableLockOut Specification
 
 ```protobuf
 message StakeableLockOut {
-    uint32 type_id = 1;                      // 04 bytes
-    uint64 locktime = 2;                     // 08 bytes
-    TransferableOutput transferable_out = 3; // size(transferable_out)
+    uint32 type_id = 1;        // 04 bytes
+    uint64 locktime = 2;       // 08 bytes
+    Output out = 3;            // size(transferable_out)
 }
 ```
 
@@ -1614,13 +1615,13 @@ Let's make a stakeablelockout with:
 
 - **`TypeID`**: 22
 - **`Locktime`**: 54321
-- **`TransferableOutput`**: `"Example SECP256K1 Transfer Output from above"`
+- **`Output`**: `"Example SECP256K1 Transfer Output from above"`
 
 ```splus
 [
-    TypeID              <- 0x00000016
-    Locktime            <- 0x000000000000d431
-    TransferableOutput  <- 0x000000070000000000003039000000000000d431000000010000000251025c61fbcfc078f69334f834be6dd26d55a955c3344128e060128ede3523a24a461c8943ab0859,
+    TypeID       <- 0x00000016
+    Locktime     <- 0x000000000000d431
+    Output       <- 0x000000070000000000003039000000000000d431000000010000000251025c61fbcfc078f69334f834be6dd26d55a955c3344128e060128ede3523a24a461c8943ab0859,
 ]
 =
 [
@@ -1628,7 +1629,7 @@ Let's make a stakeablelockout with:
     0x00, 0x00, 0x00, 0x16,
     // locktime:
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xd4, 0x31,
-    // transferable_out
+    // output
     0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x30, 0x39, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0xd4, 0x31, 0x00, 0x00, 0x00, 0x01,
