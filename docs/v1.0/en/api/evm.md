@@ -755,7 +755,7 @@ curl -X POST --data '{
 
 ### avax.export
 
-Send a non-AVAX asset from the C-Chain to the X-Chain. After calling this method, you must call `import` on the X-Chain to complete the transfer.
+Export an asset from the C-Chain to the X-Chain. After calling this method, you must call `import` on the X-Chain to complete the transfer.
 
 #### Signature
 
@@ -771,7 +771,7 @@ avax.export({
 
 * `to` is the X-Chain address the AVAX is sent to.
 * `amount` is the amount of nAVAX to send.
-* `assetID` is the assetID of the non-AVAX asset.
+* `assetID` is the assetID of the AVAX asset. To export AVAX use `"AVAX"` as the `assetID`.
 * The asset is sent from addresses controlled by `username` and `password`.
 
 #### Example Call
@@ -804,6 +804,8 @@ curl -X POST --data '{
 ```
 
 ### avax.exportAVAX
+
+**DEPRECATED&mdash;instead use [avax.export](./evm.md#avaxexport)**
 
 Send AVAX from the C-Chain to the X-Chain. After calling this method, you must call `importAVAX` on the X-Chain to complete the transfer.
 
@@ -975,6 +977,8 @@ curl -X POST --data '{
 ```
 
 ### avax.importAVAX
+
+**DEPRECATED&mdash;instead use [avax.import](./evm.md#avaximport)**
 
 Finalize a transfer of AVAX from the X-Chain to the C-Chain. Before this method is called, you must call the X-Chain's [`exportAVAX`](./avm.md#avmexportavax) method to initiate the transfer.
 

@@ -574,7 +574,7 @@ curl -X POST --data '{
 
 ### avm.export
 
-Send a non-AVAX asset from the X-Chain to the C-Chain.  After calling this method, you must call `import` on the C-Chain to complete the transfer.
+Export a AVAX or a non-AVAX asset from the X-Chain.  After calling this method, you must call `import` on either the P-Chain or C-Chain to complete the transfer.
 
 #### Signature
 
@@ -592,7 +592,7 @@ avm.export({
 
 * `to` is the C-Chain address the non-AVAX asset is sent to.
 * `amount` is the amount of non-AVAX asset to send.
-* `assetID` is the assetID which is returned from `avm.createFixedCapAsset` and/or `avm.createVariableCapAsset`.
+* `assetID` is the assetID which is returned from `avm.createFixedCapAsset` and/or `avm.createVariableCapAsset`. To export AVAX use `"AVAX"` as the `assetID`.
 * The asset is sent from addresses controlled by `username` and `password`.
 
 ##### Response
@@ -632,7 +632,9 @@ curl -X POST --data '{
 
 ### avm.exportAVAX
 
-Send AVAX from the X-Chain to another chain.  
+**DEPRECATED&mdash;instead use [avm.export](./avm.md#avmexport)**
+
+Export AVAX from the X-Chain to another chain.  
 After calling this method, you must call `importAVAX` on the other chain to complete the transfer.
 
 #### Signature
@@ -1181,8 +1183,9 @@ curl -X POST --data '{
 }
 ```
 
-
 ### avm.importAVAX
+
+**DEPRECATED&mdash;instead use [avm.import](./avm.md#avmimport)**
 
 Finalize a transfer of AVAX from the P-Chain to the X-Chain.
 Before this method is called, you must call the P-Chain's [`exportAVAX`](./platform.md#platformexportavax) method to initiate the transfer.
