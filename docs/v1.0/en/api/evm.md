@@ -776,7 +776,7 @@ avax.exportAVAX({
 * `from` is the C-Chain addresses the AVAX is sent from. They should be in hex format.
 * `to` is the X-Chain address the AVAX is sent to. It should be in bech32 format.
 * `amount` is the amount of nAVAX to send.
-* `destinationChain` is the chain the AVAX is sent to.
+* `destinationChain` is the chain the AVAX is sent to. To export funds to the X-Chain, use `"X"`.
 * `changeAddr` is the C-Chain address where any change is sent to. It should be in hex format.
 * The AVAX is sent from addresses controlled by `username`
 
@@ -836,7 +836,8 @@ avax.exportKey({
 
 ##### Response
 
-* `privateKey` is the string representation of the private key that controls `address`.
+* `privateKey` is the CB58 endcoded string representation of the private key that controls `address`. It has a `PrivateKey-` prefix and can be used to import a key via `avax.importKey`.
+* `privateKeyHex` is the hex string representation of the private key that controls `address`. It can be used to import an account in to Metamask.
 
 #### Example Call
 
@@ -859,7 +860,8 @@ curl -X POST --data '{
 {
     "jsonrpc": "2.0",
     "result": {
-        "privateKey": "PrivateKey-2o2uPgTSf3aR5nW6yLHjBEAiatAFKEhApvYzsjvAJKRXVWCYkE"
+        "privateKey": "PrivateKey-2o2uPgTSf3aR5nW6yLHjBEAiatAFKEhApvYzsjvAJKRXVWCYkE",
+        "privateKeyHex": "0xec381fb8d32168be4cf7f8d4ce9d8ca892d77ba574264f3665ad5edb89710157"
     },
     "id": 1
 }}
