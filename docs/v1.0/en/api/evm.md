@@ -4,9 +4,9 @@ This document describes the API of the C-Chain, which is an instance of the Ethe
 
 Note: Ethereum has its own notion of `networkID` and `chainID`. 
 These have no relationship to Avalanche's view of networkID and chainID, and are purely internal to the C-Chain. 
-On Mainnet, the C-Chain uses `1` and `43114` for these values.
-On the Fuji Testnet, it uses `1` and `43113` for these values.
+On the Local Testnet, it uses `12345` and `43112` for these values. On the Fuji Testnet, it uses `5` and `43113` for these values. On Mainnet, the C-Chain uses `1` and `43114` for these values.
 `networkID` anc `chainID` can also be obtained using the `net_version` and `eth_chainId` methods shown below.
+
 ## Deploying a Smart Contract
 
 For a tutorial on deploying a Solidity smart contract on the C-Chain, see [here.](../tutorials/deploy-a-smart-contract.md)
@@ -167,7 +167,7 @@ curl -X POST --data '{
 }
 ```
 
-### Getting an account's balance
+### Getting an account's AVAX balance
 
 #### Example Call
 
@@ -182,7 +182,7 @@ curl -X POST --data '{
     "id": 1
 }' -H 'Content-Type: application/json' \
    -H 'cache-control: no-cache' \
-   127.0.0.1:9650/ext/bc/C/rpc 
+   127.0.0.1:9650/ext/bc/C/rpc
 ```
 
 #### Example Response
@@ -192,6 +192,35 @@ curl -X POST --data '{
     "jsonrpc": "2.0",
     "id": 1,
     "result": "0x0"
+}
+```
+
+### Getting an account's non-AVAX balance
+
+#### Example Call
+
+```json
+curl -X POST --data '{
+    "jsonrpc": "2.0",
+    "method": "eth_getAssetBalance",
+    "params": [
+        "0x820891f8b95daf5ea7d7ce7667e6bba2dd5c5594",
+        "latest",
+        "2nzgmhZLuVq8jc7NNu2eahkKwoJcbFWXWJCxHBVWAJEZkhquoK"
+    ],
+    "id": 1
+}' -H 'Content-Type: application/json' \
+   -H 'cache-control: no-cache' \
+   127.0.0.1:9650/ext/bc/C/rpc
+```
+
+#### Example Response
+
+```json
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": "0x12a05f200"
 }
 ```
 
@@ -706,7 +735,7 @@ curl -X POST --data '{
     "id": 1
 }' -H 'Content-Type: application/json' \
    -H 'cache-control: no-cache' \
-   127.0.0.1:9650/ext/bc/C/rpc 
+   127.0.0.1:9650/ext/bc/C/rpc
 ```
 
 #### Example Response
@@ -719,5 +748,221 @@ curl -X POST --data '{
         "pending": "0x2f",
         "queued": "0x0"
     }
+}
+```
+
+## AVAX RPC endpoints
+
+### avax.exportAVAX
+
+Send AVAX from the C-Chain to the X-Chain. After calling this method, you must call `importAVAX` on the X-Chain to complete the transfer.
+
+#### Signature
+
+```go
+avax.exportAVAX({
+    from: string[],
+    to: string,
+    amount: int,
+    destinationChain: string,
+    changeAddr: string,
+    username: string,
+    password:string,
+}) -> {txID: string}
+```
+
+##### Request
+
+* `from` is the C-Chain addresses the AVAX is sent from. They should be in hex format.
+* `to` is the X-Chain address the AVAX is sent to. It should be in bech32 format.
+* `amount` is the amount of nAVAX to send.
+* `destinationChain` is the chain the AVAX is sent to.
+* `changeAddr` is the C-Chain address where any change is sent to. It should be in hex format.
+* The AVAX is sent from addresses controlled by `username`
+
+##### Response
+
+* `txid` is the txid of the completed ExportTx.
+
+#### Example Call
+
+```json
+curl -X POST --data '{
+    "jsonrpc":"2.0",
+    "id"     :1,
+    "method" :"avax.exportAVAX",
+    "params" :{
+        "from": ["0x8db97C7cEcE249c2b98bDC0226Cc4C2A57BF52FC"],
+        "to":"X-avax1q9c6ltuxpsqz7ul8j0h0d0ha439qt70sr3x2m0",
+        "amount": 500,
+        "destinationChain": "X",
+        "changeAddr": "0x8db97C7cEcE249c2b98bDC0226Cc4C2A57BF52FC",
+        "username":"myUsername",
+        "password":"myPassword"
+    }
+}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/C/avax
+```
+
+#### Example Response
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "txID": "2ffcxdkiKXXA4JdyRoS38dd7zoThkapNPeZuGPmmLBbiuBBHDa"
+    },
+    "id": 1
+}
+```
+
+### avax.exportKey
+
+Get the private key that controls a given address. The returned private key can be added to a user with `avax.importKey`.
+
+#### Signature
+
+```go
+avax.exportKey({
+    username: string,
+    password:string,
+    address:string
+}) -> {privateKey: string}
+```
+
+##### Request
+
+* `username` must control `address`.
+* `address` is the address for which you want to export the corresponding private key. It should be in hex format.
+
+##### Response
+
+* `privateKey` is the string representation of the private key that controls `address`.
+
+#### Example Call
+
+```json
+curl -X POST --data '{
+    "jsonrpc":"2.0",
+    "id"     :1,
+    "method" :"avax.exportKey",
+    "params" :{
+        "username" :"myUsername",
+        "password":"myPassword",
+        "address": "0xc876DF0F099b3eb32cBB78820d39F5813f73E18C"
+    }
+}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/C/avax
+```
+
+#### Example Response
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "privateKey": "PrivateKey-2o2uPgTSf3aR5nW6yLHjBEAiatAFKEhApvYzsjvAJKRXVWCYkE"
+    },
+    "id": 1
+}}
+```
+
+### avax.importAVAX
+
+Finalize a transfer of AVAX from the X-Chain to the C-Chain. Before this method is called, you must call the X-Chain's [`exportAVAX`](./avm.md#avmexportavax) method to initiate the transfer.
+
+#### Signature
+
+```go
+avax.importAVAX({
+    to: string,
+    sourceChain: string,
+    username: string,
+    password:string,
+}) -> {txID: string}
+```
+
+##### Request
+
+* `to` is the address the AVAX is sent to. It should be in hex format.
+* `sourceChain` is the ID or alias of the chain the AVAX is being imported from. To import funds from the X-Chain, use `"X"`.
+* `username` is the user that controls `to`.
+
+##### Response
+
+* `txid` is the txid of the completed ImportTx.
+
+#### Example Call	
+
+```json
+curl -X POST --data '{
+    "jsonrpc":"2.0",
+    "id"     :1,
+    "method" :"avax.importAVAX",
+    "params" :{
+        "to":"0x4b879aff6b3d24352Ac1985c1F45BA4c3493A398",
+        "sourceChain":"X",
+        "username":"myUsername",
+        "password":"myPassword"
+    }
+}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/C/avax
+```
+
+#### Example Response
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "txID": "LWTRsiKnEUJC58y8ezAk6hhzmSMUCtemLvm3LZFw8fxDQpns3"
+    },
+    "id": 1
+}
+```
+
+### avax.importKey
+
+Give a user control over an address by providing the private key that controls the address.
+
+#### Signature	
+
+```go
+avax.importKey({
+    username: string,
+    password:string,
+    privateKey:string
+}) -> {address: string}
+```
+
+##### Request
+
+* Add `privateKey` to `username`'s set of private keys.
+
+##### Response
+
+* `address` is the address `username` now controls with the private key. It will be in hex format.
+
+#### Example Call
+
+```json	
+curl -X POST --data '{
+    "jsonrpc":"2.0",
+    "id"     :1,
+    "method" :"avax.importKey",
+    "params" :{
+        "username" :"myUsername",
+        "password":"myPassword",
+        "privateKey":"PrivateKey-2o2uPgTSf3aR5nW6yLHjBEAiatAFKEhApvYzsjvAJKRXVWCYkE"
+    }
+}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/C/avax
+```
+
+#### Example Response
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "address": "0xc876DF0F099b3eb32cBB78820d39F5813f73E18C"
+    },
+    "id": 1
 }
 ```
