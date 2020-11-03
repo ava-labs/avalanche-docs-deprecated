@@ -574,8 +574,7 @@ curl -X POST --data '{
 
 ### avm.export
 
-Send a non-AVAX asset from the X-Chain to the C-Chain.  
-After calling this method, you must call `import` on the C-Chain to complete the transfer.
+Send a non-AVAX asset from the X-Chain to the C-Chain.  After calling this method, you must call `import` on the C-Chain to complete the transfer.
 
 #### Signature
 
@@ -589,10 +588,17 @@ avm.export({
 }) -> {txID: string, changeAddr: string}
 ```
 
+##### Request
+
 * `to` is the C-Chain address the non-AVAX asset is sent to.
 * `amount` is the amount of non-AVAX asset to send.
 * `assetID` is the assetID which is returned from `avm.createFixedCapAsset` and/or `avm.createVariableCapAsset`.
 * The asset is sent from addresses controlled by `username` and `password`.
+
+##### Response
+
+* `txID` is this transaction's ID.
+* `changeAddr` in the result is the address where any change was sent.
 
 #### Example Call
 
@@ -624,7 +630,6 @@ curl -X POST --data '{
 }
 ```
 
-
 ### avm.exportAVAX
 
 Send AVAX from the X-Chain to another chain.  
@@ -647,11 +652,16 @@ avm.exportAVAX({
 }
 ```
 
+##### Request
+
 * `to` is the P-Chain or C-Chain address the AVAX is sent to.
 * `amount` is the amount of nAVAX to send.
 * `from` are the addresses that you want to use for this operation. If omitted, uses any of your addresses as needed.
 * `changeAddr` is the address any change will be sent to. If omitted, change is sent to one of the addresses controlled by the user.
 * The AVAX is sent from addresses controlled by `username`
+
+##### Response
+
 * `txID` is this transaction's ID.
 * `changeAddr` in the result is the address where any change was sent.
 
@@ -1131,10 +1141,16 @@ avm.import({
 }) -> {txID: string}
 ```
 
+##### Request
+
 * `to` is the address the non-AVAX asset is sent to. This must be the same as the `to` argument in the corresponding call to the C-Chain's `export`.
 * `sourceChain` is the ID or alias of the chain the non-AVAX asset is being imported from. To import funds from the C-Chain, use `"C"`.
 * `assetID` is the assetID of the non-AVAX asset.
 * `username` is the user that controls `to`.
+
+##### Response
+
+* `txID` is this transaction's ID.
 
 #### Example Call
 
@@ -1198,8 +1214,8 @@ curl -X POST --data '{
     "params" :{
         "to":"X-avax1s7aygrkrtxflmrlyadlhqu70a6f4a4n8l2tru8",
         "sourceChain":"P",
-    	"username":"myUsername",
-    	"password":"myPassword"
+        "username":"myUsername",
+        "password":"myPassword"
     }
 }' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/X
 ```

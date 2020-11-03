@@ -753,6 +753,57 @@ curl -X POST --data '{
 
 ## AVAX RPC endpoints
 
+### avax.export
+
+Send a non-AVAX asset from the C-Chain to the X-Chain.  
+After calling this method, you must call `import` on the X-Chain to complete the transfer.
+
+#### Signature
+
+```go
+avax.export({
+    to: string,
+    amount: int,
+    assetID: string,
+    username: string,
+    password:string,
+}) -> {txID: string}
+```
+
+* `to` is the X-Chain address the AVAX is sent to.
+* `amount` is the amount of nAVAX to send.
+* `assetID` is the assetID of the non-AVAX asset.
+* The asset is sent from addresses controlled by `username` and `password`.
+
+#### Example Call
+
+```json
+curl -X POST --data '{
+    "jsonrpc":"2.0",
+    "id"     :1,
+    "method" :"avax.export",
+    "params" :{
+        "to":"X-avax1q9c6ltuxpsqz7ul8j0h0d0ha439qt70sr3x2m0",
+        "amount": 500,
+        "assetID": "2nzgmhZLuVq8jc7NNu2eahkKwoJcbFWXWJCxHBVWAJEZkhquoK",
+        "username":"myUsername",
+        "password":"myPassword"
+    }
+}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/C/avax
+```
+
+#### Example Response
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "txID": "2W5JuFENitZKTpJsy9igBpTcEeBKxBHHGAUkgsSUnkjVVGQ9i8"
+    },
+    "id": 1
+}
+```
+
 ### avax.exportAVAX
 
 Send AVAX from the C-Chain to the X-Chain. After calling this method, you must call `importAVAX` on the X-Chain to complete the transfer.
@@ -782,7 +833,7 @@ avax.exportAVAX({
 
 ##### Response
 
-* `txid` is the txid of the completed ExportTx.
+* `txID` is the txid of the completed ExportTx.
 
 #### Example Call
 
@@ -867,6 +918,63 @@ curl -X POST --data '{
 }}
 ```
 
+### avax.import
+
+Finalize the transfer of a non-AVAX from the X-Chain to the C-Chain.
+Before this method is called, you must call the X-Chain's [`export`](./avm.md#avmexport) method to initiate the transfer.
+
+#### Signature
+
+```go
+avax.import({
+    to: string,
+    sourceChain: string,
+    assetID: string,
+    username: string,
+    password:string,
+}) -> {txID: string}
+```
+
+##### Request
+
+* `to` is the address the AVAX is sent to. This must be the same as the `to` argument in the corresponding call to the C-Chain's `export`.
+* `sourceChain` is the ID or alias of the chain the AVAX is being imported from. To import funds from the X-Chain, use `"X"`.
+* `assetID` is the assetID of the non-AVAX asset.
+* `username` is the user that controls `to`.
+
+##### Response
+
+* `txID` is the txid of the completed ImportTx.
+
+#### Example Call
+
+```json
+curl -X POST --data '{
+    "jsonrpc":"2.0",
+    "id"     :1,
+    "method" :"avax.import",
+    "params" :{
+        "to":"0x4b879aff6b3d24352Ac1985c1F45BA4c3493A398",
+        "sourceChain":"X",
+        "assetID": "2nzgmhZLuVq8jc7NNu2eahkKwoJcbFWXWJCxHBVWAJEZkhquoK",
+        "username":"myUsername",
+        "password":"myPassword"
+    }
+}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/C/avax
+```
+
+#### Example Response
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "txID": "6bJq9dbqhiQvoshT3uSUbg9oB24n7Ei6MLnxvrdmao78oHR9t"
+    },
+    "id": 1
+}
+```
+
 ### avax.importAVAX
 
 Finalize a transfer of AVAX from the X-Chain to the C-Chain. Before this method is called, you must call the X-Chain's [`exportAVAX`](./avm.md#avmexportavax) method to initiate the transfer.
@@ -890,9 +998,9 @@ avax.importAVAX({
 
 ##### Response
 
-* `txid` is the txid of the completed ImportTx.
+* `txID` is the txid of the completed ImportTx.
 
-#### Example Call	
+#### Example Call
 
 ```json
 curl -X POST --data '{
