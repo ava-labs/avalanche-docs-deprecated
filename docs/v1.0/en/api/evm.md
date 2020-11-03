@@ -755,8 +755,7 @@ curl -X POST --data '{
 
 ### avax.export
 
-Send a non-AVAX asset from the C-Chain to the X-Chain.  
-After calling this method, you must call `import` on the X-Chain to complete the transfer.
+Send a non-AVAX asset from the C-Chain to the X-Chain. After calling this method, you must call `import` on the X-Chain to complete the transfer.
 
 #### Signature
 
